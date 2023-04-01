@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useIsomorphicLayoutEffect } from "framer-motion";
 import { Experience } from "../typings";
 import { urlFor } from "../sanity";
 import { useMediaQuery } from "react-responsive";
+import Image from "next/image";
 
 type Props = {
   experience: Experience;
@@ -10,8 +11,13 @@ type Props = {
 
 function ExperienceCard({ experience }: Props) {
   const [isMacbookAir, setIsMacbookAir] = useState(false);
-  // const isMacbookAir = useMediaQuery({ query: "(min-width: 1368px)" });
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  useIsomorphicLayoutEffect(() => {
+    setIsImageLoaded(true);
+  }, []);
 
   useEffect(() => {
     setIsMacbookAir(window.matchMedia("(min-width: 1400px)").matches);
@@ -58,11 +64,13 @@ function ExperienceCard({ experience }: Props) {
         </p>
         <div className="flex space-x-2 my-2">
           {experience.technologies.map((technology) => (
-            <img
+            <Image
               key={technology._id}
               src={urlFor(technology.image).url()}
               alt="skills"
-              className="w-6 h-6 md:w-8 md:h-8 xl:w-10 xl:h-10 rounded-full"
+              width={24}
+              height={24}
+              className="md:w-8 md:h-8 xl:w-10 xl:h-10 rounded-full"
             />
           ))}
         </div>

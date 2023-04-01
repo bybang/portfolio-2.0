@@ -29,7 +29,9 @@ const Home = ({ pageInfo, experiences, skills, projects, socials }: Props) => {
   return (
     <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/50 scrollbar-thumb-[#F7AB0A]">
       <Head>
-        <title>{pageInfo?.name} - Portfolio</title>
+        <title>
+          {[pageInfo?.name, "Portfolio"].filter(Boolean).join(" - ")}
+        </title>
       </Head>
 
       <Header socials={socials} />
