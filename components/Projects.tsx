@@ -24,7 +24,7 @@ function Projects({ projects }: Props) {
       <div className="relative flex w-full overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/50 scrollbar-thumb-[#F7AB0A]">
         {projects?.map((project, i) => (
           <div
-            key={i}
+            key={project?._id}
             className="flex flex-col items-center justify-center space-y-4 p-5 md:p-20 2xl:p-44 h-screen w-full flex-shrink-0 snap-center"
           >
             <Link key={project._id} href={project.linkToBuild} target="_blank">
