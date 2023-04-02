@@ -4,7 +4,7 @@ import { sanityClient } from "../../sanity";
 import { PageInfo } from "../../typings";
 
 type Data = {
-  pageInfo: PageInfo[];
+  pageInfo: PageInfo;
 };
 
 const query = groq`
@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   // go to the backend, excute query and pull back into here
-  const pageInfo: PageInfo[] = await sanityClient.fetch(query);
+  const pageInfo: PageInfo = await sanityClient.fetch(query);
 
   res.status(200).json({ pageInfo });
 }
