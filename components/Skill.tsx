@@ -15,17 +15,10 @@ function Skill({ skill, directionLeft }: Props) {
   return (
     <div className="relative flex group cursor-pointer">
       <motion.img
-        initial={
-          isMobile
-            ? {
-                x: directionLeft ? -80 : 80,
-                opacity: 0,
-              }
-            : {
-                x: directionLeft ? -200 : 200,
-                opacity: 0,
-              }
-        }
+        initial={{
+          x: directionLeft ? -90 : 90,
+          opacity: 0,
+        }}
         transition={{ duration: 1 }}
         whileInView={{ x: 0, opacity: 1 }}
         src={urlFor(skill?.image).url()}

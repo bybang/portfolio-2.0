@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, useIsomorphicLayoutEffect } from "framer-motion";
 import { Experience } from "../typings";
 import { urlFor } from "../sanity";
@@ -13,13 +13,8 @@ function ExperienceCard({ experience }: Props) {
   const [isMacbookAir, setIsMacbookAir] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-
   useIsomorphicLayoutEffect(() => {
     setIsImageLoaded(true);
-  }, []);
-
-  useEffect(() => {
     setIsMacbookAir(window.matchMedia("(min-width: 1400px)").matches);
   }, []);
 
@@ -28,19 +23,13 @@ function ExperienceCard({ experience }: Props) {
       className={`flex flex-col items-center space-y-7 rounded-lg bg-[#292929] flex-shrink-0 snap-center opacity-40 hover:opacity-100 transition-opacity duration-200 overflow-hidden cursor-pointer p-6 xl:p-10 w-full md:w-[480px] md:h-[60vh] lg:w-[550px] lg:h-[65vh] xl:w-[900px] ${
         isMacbookAir && "h-[70vh]"
       } py-1 2xl-h-[75vh]`}
+      onLoad={() => setIsMacbookAir(true)}
     >
       <motion.img
-        initial={
-          isMobile
-            ? {
-                y: -80,
-                opacity: 0,
-              }
-            : {
-                y: -100,
-                opacity: 0,
-              }
-        }
+        initial={{
+          y: -100,
+          opacity: 0,
+        }}
         transition={{ duration: 1.2 }}
         whileInView={{
           y: 0,
@@ -93,6 +82,7 @@ function ExperienceCard({ experience }: Props) {
           className={`list-disc space-y-4 ml-5 overflow-y-scroll scrollbar-thin scrollbar-track-gray-400/50 scrollbar-thumb-[#F7AB07] max-h-44 md:max-h-32 lg:max-h-32 pr-5 text-sm md:text-base xl:text-xl xl:max-h-32 2xl:overflow-y-auto 2xl:max-h-full 2xl:h-full 2xl:text-2xl ${
             isMacbookAir && "h-24"
           }`}
+          onLoad={() => setIsMacbookAir(true)}
         >
           {experience.points.map((point, idx) => (
             <li key={idx}>{point}</li>
